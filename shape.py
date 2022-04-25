@@ -2,6 +2,7 @@ import cv2
 import depthai
 import numpy
 import json
+from datetime import datetime
 
 # create device pipeline
 pipeline = depthai.Pipeline()
@@ -74,23 +75,51 @@ def mouseCallback(event, x, y, flags, param) :
 cv2.namedWindow("edge")
 cv2.setMouseCallback("edge", mouseCallback)
 
+def saveJpeg(folderName, frameImage):
+	if frameImage is not None:
+		now = datetime.now()
+		timestring = datetime.timestamp(now)
+		path = "captures/%d/capture-%d.jpg" % (folderName-48,timestring)
+		print(path)
+		cv2.imwrite(path, frameImage)
+
 # initialize device
+
 with depthai.Device(pipeline) as device:
 
-    edgeQueue = device.getOutputQueue("edge")
-    edgeConfigQueue = device.getInputQueue("edge config")
+	edgeQueue = device.getOutputQueue("edge")
+	edgeConfigQueue = device.getInputQueue("edge config")
 
-    while(True):
-        edgeCamera = edgeQueue.get()
-        edgeFrame = edgeCamera.getFrame()
+	while(True):
+		edgeCamera = edgeQueue.get()
+		edgeFrame = edgeCamera.getFrame()
 
-        cv2.rectangle(edgeFrame, (roiBox[0],roiBox[1],roiBox[2],roiBox[3]), roiColor, 2)
+		cv2.rectangle(edgeFrame, (roiBox[0],roiBox[1],roiBox[2],roiBox[3]), roiColor, 2)
 
-        cv2.namedWindow("edge", cv2.WINDOW_NORMAL)
-        cv2.resizeWindow("edge", 720, 405)
-        edgeResize = cv2.resize(edgeFrame, (720,405) )
-        cv2.imshow("edge", edgeResize)
+		cv2.namedWindow("edge", cv2.WINDOW_NORMAL)
+		cv2.resizeWindow("edge", 720, 405)
+		edgeResize = cv2.resize(edgeFrame, (720,405) )
+		cv2.imshow("edge", edgeResize)
 
-        key = cv2.waitKey(1)
-        if key == ord('q'):
-            break
+		key = cv2.waitKey(1)
+		if key == ord('q'):
+			break
+		if key == ord('1'):
+			saveJpeg(key, edgeFrame)
+		if key == ord('2'):
+			saveJpeg(key, edgeFrame)
+		if key == ord('3'):
+			saveJpeg(key, edgeFrame)
+		if key == ord('4'):
+			saveJpeg(key, edgeFrame)
+		if key == ord('5'):
+			saveJpeg(key, edgeFrame)
+		if key == ord('6'):
+			saveJpeg(key, edgeFrame)
+		if key == ord('7'):
+			saveJpeg(key, edgeFrame)
+		if key == ord('8'):
+			saveJpeg(key, edgeFrame)
+		if key == ord('9'):
+			saveJpeg(key, edgeFrame)
+
