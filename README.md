@@ -9,8 +9,11 @@ This is attraction runs on the following hardware/software/objects
 - Tanram pieces
 - Amplified Speakers
 
+## Annotation
+We have to annotate our images. For now, we're using Roboflow, with the following project id: [eniarof-pillard-tangram](https://app.roboflow.com/eniarof/eniarof-pillard-tangram/).
+
 ## Training
-...
+We are using
 
 ## Conda (Mac)
 
